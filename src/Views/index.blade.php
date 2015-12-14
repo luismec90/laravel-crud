@@ -1,5 +1,21 @@
 @extends('crud::layouts.master')
 
+@section('js')
+    <script>
+        $(function () {
+            $('#clone-btn').click(function () {
+                $('#template .well').clone().appendTo('#clone-container');
+            });
+
+            $('#clone-container').on('click', '.delete-div', function () {
+                $(this).parent().parent().parent().remove();
+            });
+
+            $('#clone-btn').trigger('click');
+        });
+    </script>
+@endsection
+
 @section('content')
 
     <div class="container">
@@ -13,12 +29,86 @@
 
                     <div class="form-group">
                         <label for="pwd">Entity name:</label>
-                        <input type="text" name="entity" class="form-control" id="entity">
+                        <input type="text" name="entity" class="form-control" required>
                     </div>
+
+                    <div class="form-group">
+                        <a id="clone-btn" class="btn btn-primary pull-right">Agregar campo</a>
+
+                        <div class="checkbox">
+                            <label>
+                                <input name="soft" type="checkbox"> Use soft delete
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input name="seed" type="checkbox"> Seed table
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div id="clone-container">
+
+                    </div>
+
+                    <hr>
 
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
+        </div>
+    </div>
+
+
+    <div id="template" class="hide">
+        <div class="well well-sm div-field">
+
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="pwd">Field name:</label>
+                        <input type="text" name="fields[]" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <label for="pwd"> Data type:</label>
+                    <select name="columnTypes[]" class="form-control" required>
+                        <option value="">Select...</option>
+                        @foreach($columnTypes as $columnType)
+                            <option value="{{ $columnType }}">
+                                {{ $columnType }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-lg-4">
+                    <label for="pwd">Data type parameters:</label>
+                    <input type="text" name="params[]" class="form-control">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <label for="pwd">Validation rules:</label>
+                    <input type="text" name="rules[]" class="form-control" placeholder="Ej: required|date|after:tomorrow">
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <a class="btn btn-danger pull-right delete-div">Eliminar campo</a>
+                </div>
+            </div>
+
         </div>
     </div>
 

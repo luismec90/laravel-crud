@@ -14,6 +14,7 @@ class CreateupperPluralEntityTable extends Migration
     {
         Schema::create('lowerPluralEntity', function (Blueprint $table) {
             $table->increments('id');
+stringFields;
             $table->timestamps();
         });
     }

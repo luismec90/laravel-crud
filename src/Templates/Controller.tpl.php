@@ -16,7 +16,7 @@ class upperEntityController extends Controller
      */
     public function index()
     {
-        $lowerPluralEntity = upperEntity::all();
+        $lowerPluralEntity = upperEntity::paginate(20);
 
         return view('lowerPluralEntity.index', compact('lowerPluralEntity'));
     }
@@ -39,7 +39,11 @@ class upperEntityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            stringRules
+        ]);
+
+        upperEntity::create($request);
     }
 
     /**
