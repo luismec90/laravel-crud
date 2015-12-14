@@ -8,31 +8,12 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form class="" role="form">
+                <form action="{{ route('montoya_generate_path') }}" class="" role="form" method="POST">
+                    {{ csrf_field() }}
 
                     <div class="form-group">
                         <label for="pwd">Entity name:</label>
                         <input type="text" name="entity" class="form-control" id="entity">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pwd">Route:</label>
-                        <input type="text" name="entity" class="form-control" id="entity">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pwd">Route name:</label>
-                        <input type="text" name="entity" class="form-control" id="entity">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pwd">Controller name:</label>
-                        <input type="text" name="entity" class="form-control" id="entity">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fields">Fields:</label>
-                        <textarea class="form-control" id="fields"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Enviar</button>
