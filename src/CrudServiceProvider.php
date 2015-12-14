@@ -9,7 +9,6 @@ class CrudServiceProvider extends ServiceProvider
      *
      * @return void
      */
-
     public function boot()
     {
         // Route
