@@ -1,0 +1,25 @@
+{
+  "name": "montoya/laravel-crud",
+  "description": "",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "laravel"
+  ],
+  "authors": [
+    {
+      "name": "Luis Montoya",
+      "email": "luismec90@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "~5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Montoya\\Crud\\": "src/"
+    }
+  }
+}
