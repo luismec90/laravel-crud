@@ -35,19 +35,11 @@
                     <div class="form-group">
                         <a id="clone-btn" class="btn btn-primary pull-right">Agregar campo</a>
 
-                        <div class="checkbox">
-                            <label>
-                                <input name="soft" type="checkbox"> Use soft delete
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input name="seed" type="checkbox"> Seed table
-                            </label>
-                        </div>
 
                     </div>
 
+                    <br>
+                    <br>
                     <br>
 
                     <div id="clone-container">
@@ -68,14 +60,14 @@
 
             <div class="row">
 
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="form-group">
                         <label for="pwd">Field name:</label>
                         <input type="text" name="fields[]" class="form-control" required>
                     </div>
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <label for="pwd"> Data type:</label>
                     <select name="columnTypes[]" class="form-control" required>
                         <option value="">Select...</option>
@@ -87,17 +79,23 @@
                     </select>
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <label for="pwd">Data type parameters:</label>
                     <input type="text" name="params[]" class="form-control">
+                </div>
+                <div class="col-lg-5">
+                    <label for="pwd">Validation rules:</label>
+                    <input type="text" name="rules[]" class="form-control" placeholder="Ej: required|date|after:tomorrow">
                 </div>
 
             </div>
 
             <div class="row">
+
                 <div class="col-lg-12">
-                    <label for="pwd">Validation rules:</label>
-                    <input type="text" name="rules[]" class="form-control" placeholder="Ej: required|date|after:tomorrow">
+                    <label for="pwd">Custom messages:</label>
+                    <textarea name="messages[]" rows="4" class="form-control"></textarea>
+
                 </div>
             </div>
 
