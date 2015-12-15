@@ -52,6 +52,7 @@ class CrudController extends Controller
 
     public function generate(Request $request)
     {
+
         $this->validate($request, ['entity' => 'required']);
 
 
@@ -110,14 +111,32 @@ class CrudController extends Controller
 
         $fields = $request->input('fields');
         $rules = $request->input('rules');
+        $messages = $request->input('messages');
 
-        $stringRules="";
+        $stringRules = "";
 
         foreach ($rules as $index => $rule) {
-            $stringRules .= "'$fields[$index]'=>'$rule'";
+            $stringRules .= "'$fields[$index]'=>'$rule',\r\t\t\t";
         }
+        $stringRules = rtrim($stringRules, ",\r\t\t\t");
 
-        $content = $this->renderTemplate($source, ['stringRules'], [$stringRules]);
+        $stringMessages = "";
+
+        foreach ($messages as $index => $message) {
+            $message = explode("\n", $message);
+
+            foreach ($message as $r) {
+                $r = explode("=", $r);
+
+                if (sizeof($r) == 2)
+                    $stringMessages .= "'$fields[$index]." . trim($r[0]) . "'=>'" . trim($r[1]) . "',\r\t\t\t";
+            }
+
+        }
+        $stringMessages = rtrim($stringMessages, ",\r\t\t\t");
+
+
+        $content = $this->renderTemplate($source, ['stringRules', 'stringMessages'], [$stringRules, $stringMessages]);
         $this->createFile(app_path() . '/Http/Controllers/' . $this->upperEntity . 'Controller.php', $content);
     }
 
@@ -150,17 +169,15 @@ class CrudController extends Controller
 
     private function renderTemplate($source, $find = [], $replace = [])
     {
-
-        $find += ['lowerEntity',
+        array_push($find, 'lowerEntity',
             'lowerPluralEntity',
             'upperEntity',
-            'upperPluralEntity'];
+            'upperPluralEntity');
 
-        $replace += [$this->lowerEntity,
+        array_push($replace, $this->lowerEntity,
             $this->lowerPluralEntity,
             $this->upperEntity,
-            $this->upperPluralEntity];
-
+            $this->upperPluralEntity);
 
         $content = file_get_contents($source);
 

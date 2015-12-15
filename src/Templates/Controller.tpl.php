@@ -6,6 +6,7 @@ use App\upperEntity;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class upperEntityController extends Controller
 {
@@ -41,9 +42,16 @@ class upperEntityController extends Controller
     {
         $this->validate($request, [
             stringRules
+        ],[
+            stringMessages
         ]);
 
         upperEntity::create($request);
+
+
+        Session::flash('flash_message', 'upperEntity successfully added!');
+
+        return redirect()->back();
     }
 
     /**
@@ -54,7 +62,9 @@ class upperEntityController extends Controller
      */
     public function show($id)
     {
-        //
+        $lowerEntity = upperEntity::findOrFail($id);
+
+        return view('lowerPluralEntity.show',compact('lowerEntity'));
     }
 
     /**
@@ -77,7 +87,19 @@ class upperEntityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $lowerEntity = upperEntity::findOrFail($id);
+
+        $this->validate($request, [
+            stringRules
+        ],[
+            stringMessages
+        ]);
+
+        $lowerEntity->update($request);
+
+        Session::flash('flash_message', 'upperEntity successfully added!');
+
+        return redirect()->back();
     }
 
     /**
@@ -88,6 +110,12 @@ class upperEntityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lowerEntity = upperEntity::findOrFail($id);
+
+        $lowerEntity->delete();
+
+        Session::flash('flash_message', 'upperEntity successfully deleted!');
+
+        return redirect()->route('lowerPluralEntity.index');
     }
 }
